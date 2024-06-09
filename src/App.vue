@@ -28,33 +28,6 @@ export default {
       submissions: [],
     };
   },
-  methods: {
-    submitForm() {
-      const newSubmissions = {
-        name: this.name,
-        email: this.email,
-      };
-      this.submissions.push(newSubmissions);
-      this.name = "";
-      this.email = "";
-    },
-    deleteSubmission(index) {
-      this.submissions.splice(index, 1);
-    },
-    showMessage() {
-      alert("Hello World");
-    },
-  },
-  computed: {
-    message() {
-      const count = this.submissions.length;
-      if (count === 0) {
-        return "0 submissions";
-      } else {
-        return `${count} submissions`;
-      }
-    },
-  },
 };
 </script>
 
