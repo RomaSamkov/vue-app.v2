@@ -1,18 +1,21 @@
 <template>
-  <input type="number" name="" id="" v-model="counter" />
-  <Counter :counter="counter" />
+  <div class="main-block"><button @click="showModal">Show Modal</button></div>
 </template>
 
 <script>
 import { defineComponent, ref } from "vue";
-import Counter from "./components/Counter.vue";
 
 export default defineComponent({
-  components: { Counter },
   name: "App",
   setup() {
-    const counter = ref(0);
-    return { counter };
+    const isModealOpen = ref(false);
+    const modalTitle = ref("");
+    const modalMessage = ref("");
+    return {
+      isModealOpen,
+      modalTitle,
+      modalMessage,
+    };
   },
 });
 </script>
