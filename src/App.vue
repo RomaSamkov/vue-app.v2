@@ -29,8 +29,8 @@ export default defineComponent({
 
     function showModal() {
       isModealOpen.value = true;
-      modalTitle.value = "Default Title";
-      modalMessage.value = "Default Message";
+      modalTitle.value = modalTitle.value || "Default Title";
+      modalMessage.value = modalMessage.value || "Default Message";
     }
 
     function closeModal() {
