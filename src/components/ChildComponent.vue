@@ -1,15 +1,20 @@
 <template>
   <div class="child-container">
     <h2><slot name="title"></slot></h2>
-    <div><slot name="content"></slot></div>
+    <div><slot></slot></div>
   </div>
 </template>
 
 <script>
-export default {
-  name: "App",
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "ChildComponent",
   components: {},
-};
+  setup() {
+    return {};
+  },
+});
 </script>
 
 <style></style>
