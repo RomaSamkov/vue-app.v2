@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, onMounted } from "vue";
 import Loader from "./Loader";
 import { useProductStore } from "@/store";
 
@@ -15,6 +15,20 @@ export default defineComponent({
   components: { Loader },
   setup() {
     const productStore = useProductStore();
+    onMounted(() => {
+      fetchProducts();
+    });
+
+    const fetchProducts = () => {
+      productStore.fetchProducts();
+    };
+
+    const addProduct(product) = () => {
+      productStore.addProduct(product)
+    }
+
+
+
     return {};
   },
 });
