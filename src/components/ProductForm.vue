@@ -35,6 +35,7 @@ export default defineComponent({
       title.value = "";
       price.value = "";
     };
+
     return { title, price, handleSubmit };
   },
 });
