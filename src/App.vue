@@ -1,13 +1,14 @@
 <template>
-  <div></div>
+  <ProductList />
 </template>
 
 <script>
 import { defineComponent } from "vue";
+import ProductList from "./components/ProductList.vue";
 
 export default defineComponent({
   name: "App",
-  components: {},
+  components: { ProductList },
   setup() {
     return {};
   },
