@@ -1,23 +1,58 @@
 <template>
-  <ProductList />
+  <div v-if="!loading" class="content"></div>
+  <Loader v-else />
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import ProductList from "./components/ProductList.vue";
+import { computed, defineComponent, onMounted, ref } from "vue";
+
+import Loader from "./components/Loader.vue";
+import { fetchAllPhotos } from "./api/fetchData";
 
 export default defineComponent({
   name: "App",
-  components: { ProductList },
+  components: { Loader },
   setup() {
-    return {};
+    const currentPage = ref(1);
+    const perPage = ref(15);
+    const photosCount = ref(0);
+    const loading = ref(true);
+
+    const handleChangePage = (page) => {
+      currentPage.value = page;
+    };
+
+    const pageCount = computed(() => {
+      return Math.ceil(photosCount.value / perPage.value);
+    });
+
+    onMounted(() => {
+      fetchAllPhotos()
+        .then((data) => {
+          photosCount.value = data.length;
+          loading.value = false;
+        })
+        .catch((error) => {
+          console.log(error);
+          loading.value = false;
+        });
+    });
+
+    return {
+      currentPage,
+      perPage,
+      photosCount,
+      loading,
+      handleChangePage,
+      pageCount,
+    };
   },
 });
 </script>
 
 <style>
 * {
-  font-family: Lexend, sans-serif;
+  font-family: "Lexend", sans-serif;
 }
 
 ul {
