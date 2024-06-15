@@ -1,84 +1,43 @@
 <template>
-  <div v-if="!loading" class="content">
-    <Gallery :limit="perPage" :page="currentPage" />
-    <Pagination
-      :on-change-page="handleChangePage"
-      :current-page="currentPage"
-      :page-count="pageCount"
-    />
-  </div>
-  <Loader v-else />
+  <Header />
+  <router-view />
 </template>
 
 <script>
-import { computed, defineComponent, onMounted, ref } from "vue";
-
-import Loader from "./components/Loader.vue";
-import { fetchAllPhotos } from "./api/fetchData";
-import Gallery from "./components/Gallery.vue";
-import Pagination from "./components/Pagination.vue";
+import { defineComponent } from "vue";
+import Header from "@/components/Header.vue";
 
 export default defineComponent({
-  name: "App",
-  components: { Loader, Gallery, Pagination },
+  components: { Header },
   setup() {
-    const currentPage = ref(1);
-    const perPage = ref(15);
-    const photosCount = ref(0);
-    const loading = ref(true);
-
-    const handleChangePage = (page) => {
-      currentPage.value = page;
-    };
-
-    const pageCount = computed(() => {
-      return Math.ceil(photosCount.value / perPage.value);
-    });
-
-    onMounted(() => {
-      fetchAllPhotos()
-        .then((data) => {
-          photosCount.value = data.length;
-          loading.value = false;
-        })
-        .catch((error) => {
-          console.log(error);
-          loading.value = false;
-        });
-    });
-
-    return {
-      currentPage,
-      perPage,
-      photosCount,
-      loading,
-      handleChangePage,
-      pageCount,
-    };
+    return {};
   },
 });
 </script>
 
 <style>
 * {
-  font-family: "Lexend", sans-serif;
-}
-
-ul {
-  list-style: none;
+  margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-button {
-  cursor: pointer;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  padding: 5px 10px;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 19px;
-  text-align: center;
-  color: #fff;
-  background: #79c56e;
-  border-radius: 6px;
+a {
+  text-decoration: none;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  overflow-y: hidden;
+}
+
+main {
+  min-height: 100vh;
+  padding: 25px;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.25),
+    rgba(0, 0, 0, 0.75)
+  );
 }
 </style>
