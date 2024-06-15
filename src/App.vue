@@ -1,5 +1,12 @@
 <template>
-  <div v-if="!loading" class="content"></div>
+  <div v-if="!loading" class="content">
+    <Gallery :limit="perPage" :page="currentPage" />
+    <Pagination
+      :on-change-page="handleChangePage"
+      :current-page="currentPage"
+      :page-count="pageCount"
+    />
+  </div>
   <Loader v-else />
 </template>
 
@@ -8,10 +15,12 @@ import { computed, defineComponent, onMounted, ref } from "vue";
 
 import Loader from "./components/Loader.vue";
 import { fetchAllPhotos } from "./api/fetchData";
+import Gallery from "./components/Gallery.vue";
+import Pagination from "./components/Pagination.vue";
 
 export default defineComponent({
   name: "App",
-  components: { Loader },
+  components: { Loader, Gallery, Pagination },
   setup() {
     const currentPage = ref(1);
     const perPage = ref(15);
