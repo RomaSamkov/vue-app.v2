@@ -1,23 +1,26 @@
 <template>
-
-  <div class="weather" :class="typeof weather?.main != 'undefined' && (weather?.main.temp - 273.15) > 16 ? 'warm' : ''">
-
+  <div
+    class="weather"
+    :class="
+      typeof weather?.main != 'undefined' && weather?.main.temp - 273.15 > 16
+        ? 'warm'
+        : ''
+    "
+  >
     <main>
       <div class="search-box">
         <input
-            type="text"
-            id="city"
-            class="search-bar"
-            placeholder="Search..."
-            v-model="city"
-            @keyup.enter="fetchData"
-        >
+          type="text"
+          id="city"
+          class="search-bar"
+          placeholder="Search..."
+          v-model="city"
+          @keyup.enter="fetchData"
+        />
       </div>
 
       <div v-if="weather?.main" class="weather-container">
-
         <div class="weather-wrap">
-
           <div class="location-box">
             <div class="location">
               {{ weather?.name }}, {{ weather.sys.country }}
@@ -28,41 +31,56 @@
           </div>
 
           <div class="weather-box">
-
-            <div class="temp">{{ (weather?.main.temp - 273.15).toFixed(1) }}°c</div>
+            <div class="temp">
+              {{ (weather?.main.temp - 273.15).toFixed(1) }}°c
+            </div>
             <div class="weather">{{ weather?.weather[0].main }}</div>
-
           </div>
-
         </div>
-
       </div>
-
     </main>
-
   </div>
-
 </template>
 
 <script>
 import { defineComponent, computed, ref } from "vue";
-import {useWeatherStore} from "@/store";
+import { useWeatherStore } from "@/store";
 
-export default defineComponent ({
+export default defineComponent({
   setup() {
-
-    const city = ref('')
-    const store = useWeatherStore()
-    const weather = computed(() => store.weatherData)
+    const city = ref("");
+    const store = useWeatherStore();
+    const weather = computed(() => store.weatherData);
 
     function fetchData() {
-      store.getWeatherData(city.value)
+      store.getWeatherData(city.value);
     }
 
-    function dateBuilder () {
+    function dateBuilder() {
       let d = new Date();
-      let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      let months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      let days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
       let day = days[d.getDay()];
       let date = d.getDate();
       let month = months[d.getMonth()];
@@ -70,28 +88,26 @@ export default defineComponent ({
       return `${day} ${date} ${month} ${year}`;
     }
 
-
     return {
       city,
       weather,
       fetchData,
-      dateBuilder
-    }
-  }
-})
+      dateBuilder,
+    };
+  },
+});
 </script>
 
 <style scoped>
-
 .weather {
-  background-image: url('../assets/cold-bg.jpg');
+  background-image: url("../assets/cold-bg.jpg");
   background-size: cover;
   background-position: bottom;
   transition: 0.4s;
 }
 
 .weather.warm {
-  background-image: url('../assets/warm-bg.jpg');
+  background-image: url("../assets/warm-bg.jpg");
 }
 
 .search-box {
@@ -106,7 +122,7 @@ export default defineComponent ({
   color: #313131;
   font-size: 20px;
   appearance: none;
-  border:none;
+  border: none;
   outline: none;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
   background-color: rgba(255, 255, 255, 0.5);
@@ -121,7 +137,7 @@ export default defineComponent ({
 }
 
 .location-box .location {
-  color: #FFF;
+  color: #fff;
   font-size: 32px;
   font-weight: 500;
   text-align: center;
@@ -129,7 +145,7 @@ export default defineComponent ({
 }
 
 .location-box .date {
-  color: #FFF;
+  color: #fff;
   font-size: 20px;
   font-weight: 300;
   font-style: italic;
@@ -143,11 +159,11 @@ export default defineComponent ({
 .weather-box .temp {
   display: inline-block;
   padding: 10px 25px;
-  color: #FFF;
+  color: #fff;
   font-size: 102px;
   font-weight: 900;
   text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
-  background-color:rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 255, 255, 0.25);
   border-radius: 16px;
   margin: 30px 0;
   box-shadow: 3px 6px rgba(0, 0, 0, 0.25);
@@ -155,11 +171,10 @@ export default defineComponent ({
 
 .weather-box .weather {
   background: none;
-  color: #FFF;
+  color: #fff;
   font-size: 48px;
   font-weight: 700;
   font-style: italic;
   text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
 }
-
 </style>
