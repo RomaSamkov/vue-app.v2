@@ -1,52 +1,45 @@
 <template>
-
   <header>
     <div class="header-container">
-
       <div class="logo-container">
         <a @click="goToMain" href="#">Mini Weather App</a>
       </div>
 
       <nav>
-
         <div class="nav-content">
           <a @click="goToMain" href="#">Main</a>
           <a @click="goToAbout" href="#">About</a>
         </div>
       </nav>
-
     </div>
   </header>
-
 </template>
 
 <script>
 import { defineComponent } from "vue";
-import {useRouter} from "vue-router";
+import { useRouter } from "vue-router";
 
-export default defineComponent ({
+export default defineComponent({
   setup() {
-
     const router = useRouter();
 
     const goToMain = () => {
-      router.push({ name: 'Main' })
-    }
+      router.push({ name: "Main" });
+    };
 
     const goToAbout = () => {
-      router.push({ name: 'About' })
-    }
+      router.push({ name: "About" });
+    };
 
     return {
       goToMain,
-      goToAbout
-    }
-  }
-})
+      goToAbout,
+    };
+  },
+});
 </script>
 
 <style scoped>
-
 .logo-container a {
   font-weight: 600;
 }
@@ -69,5 +62,4 @@ export default defineComponent ({
   align-items: center;
   gap: 20px;
 }
-
 </style>
